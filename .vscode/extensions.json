@@ -1,0 +1,10 @@
+{
+  "recommendations": [
+    "chrislajoie.vscode-modelines",
+    "davidanson.vscode-markdownlint",
+    "editorconfig.editorconfig",
+    "ms-vscode.cmake-tools",
+    "stkb.rewrap",
+    "wayou.vscode-todo-highlight"
+  ]
+}

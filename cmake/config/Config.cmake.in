@@ -1,0 +1,27 @@
+# -*- mode: language=CMake
+# vim: ft=CMake
+
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+if(NOT DEFINED cxxautocmake_POPULATED OR NOT cxxautocmake_POPULATED)
+  set_and_check(CxxAutoCMake_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+else()
+  set_and_check(CxxAutoCMake_SOURCE_DIR ${cxxautocmake_SOURCE_DIR})
+endif()
+
+list(PREPEND CMAKE_MODULE_PATH
+  "${CxxAutoCMake_SOURCE_DIR}/cmake"
+  "${CxxAutoCMake_SOURCE_DIR}/cmake/modules")
+
+include(modules/CxxAutoCMake/Support)
+
+CxxAutoCMake_detect_host(CxxAutoCMake_CMAKE_SYSTEM_NAME)
+
+# NOTE: We find the components within a subdirectory, rather than in this config file directly, in
+# order to avoid polluting parent scope with the variables set by the various `Find*.cmake` modules.
+# Instead, we locally set the properties we need from those on the imported targets they define.
+add_subdirectory("${CxxAutoCMake_SOURCE_DIR}/cmake/components")
+
+CxxAutoCMake_check_required_components(CxxAutoCMake)
